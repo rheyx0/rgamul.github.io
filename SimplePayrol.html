@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans&display=swap" rel="stylesheet">
+    <title>Simple Payroll</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Google Sans', sans-serif;
+        }
+
+        body {
+            background-color: #eeeeea;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 50px;
+            background-color: #11101b;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 28px;
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .sub-logo {
+            font-size: 14px;
+            color: #fff;
+            margin-top: 5px;
+        }
+
+        .nav-bar ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-bar ul li {
+            margin: 0 20px;
+        }
+
+        .nav-bar ul li a {
+            text-decoration: none;
+            font-size: 18px;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-bar ul li a:hover {
+            background-color: #b0b0ba;
+            color: #11101b;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 900px;
+            margin: 100px auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #11101b;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            background-color: #223;
+            color: #fff;
+            border: none;
+            padding: 15px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 10px;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: darkblue;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        th {
+            background-color: #223;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <div class="logo">Rhey Louis M. Gamul</div>
+            <div class="sub-logo">4-310</div>
+        </div>
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="Final.html" class="active">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="wrapper">
+        <h1>Simple Payroll</h1>
+        <div class="form-group">
+            <label for="name">Employee Name:</label>
+            <input type="text" id="name" placeholder="Enter Employee Name">
+        </div>
+        <div class="form-group">
+            <label for="days">Days Worked:</label>
+            <input type="number" id="days" placeholder="Enter Days Worked">
+        </div>
+        <div class="form-group">
+            <label for="rate">Daily Rate:</label>
+            <input type="number" id="rate" placeholder="Enter Daily Rate">
+        </div>
+        <div class="form-group">
+            <label for="deduction">Deduction Amount:</label>
+            <input type="number" id="deduction" placeholder="Enter Deduction Amount">
+        </div>
+        <button onclick="addEmployee()">Add Employee</button>
+        <button onclick="deleteEmployee()">Delete Employee</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Employee Name</th>
+                    <th>Days Worked</th>
+                    <th>Daily Rate</th>
+                    <th>Gross Pay</th>
+                    <th>Deduction Amount</th>
+                    <th>Net Pay</th>
+                </tr>
+            </thead>
+            <tbody id="payrollTable">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let employeeList = [];
+
+        function addEmployee() {
+            const name = document.getElementById('name').value;
+            const daysWorked = parseFloat(document.getElementById('days').value);
+            const dailyRate = parseFloat(document.getElementById('rate').value);
+            const deduction = parseFloat(document.getElementById('deduction').value);
+
+            if (!name || isNaN(daysWorked) || isNaN(dailyRate) || isNaN(deduction)) {
+                alert('Please fill in all fields with valid values.');
+                return;
+            }
+
+            const grossPay = daysWorked * dailyRate;
+            const netPay = grossPay - deduction;
+
+            employeeList.push({ name, daysWorked, dailyRate, grossPay, deduction, netPay });
+            updateTable();
+        }
+
+        function deleteEmployee() {
+            const lineNumber = prompt('Enter the Line Number of the Employee to delete:');
+            const index = parseInt(lineNumber) - 1;
+
+            if (isNaN(index) || index < 0 || index >= employeeList.length) {
+                alert('Invalid Line Number.');
+                return;
+            }
+
+            employeeList.splice(index, 1);
+            updateTable();
+        }
+
+        function updateTable() {
+            const tableBody = document.getElementById('payrollTable');
+            tableBody.innerHTML = '';
+
+            employeeList.forEach((employee, index) => {
+                const row = `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${employee.name}</td>
+                        <td>${employee.daysWorked}</td>
+                        <td>${employee.dailyRate}</td>
+                        <td>${employee.grossPay.toFixed(2)}</td>
+                        <td>${employee.deduction.toFixed(2)}</td>
+                        <td>${employee.netPay.toFixed(2)}</td>
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+            });
+        }
+    </script>
+</body>
+</html>

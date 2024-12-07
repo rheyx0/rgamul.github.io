@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature and Length Converter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Google Sans', Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #eeeeea;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            width: 100%;
+            background-color: #11101b;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 24px;
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .sub-logo {
+            font-size: 14px;
+            color: #fff;
+            font-weight: normal;
+            margin-top: 5px;
+        }
+
+        .nav-bar {
+            display: flex;
+        }
+
+        .nav-bar ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-bar ul li {
+            margin: 0 15px;
+        }
+
+        .nav-bar ul li a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-bar ul li a:hover {
+            background-color: #b0b0ba;
+            color: #11101b;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .wrapper {
+            margin-top: 50px;
+            width: 100%;
+            max-width: 600px;
+            padding: 30px; 
+            border-radius: 1rem;
+            background-color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .wrapper h1 {
+            font-size: 32px; 
+            color: #333;
+            margin-bottom: 25px;
+    }
+
+        .card {
+            padding: 30px; 
+            border-radius: 1rem;
+            background-color: #223;
+            color: white;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 15px; 
+            margin-bottom: 20px;
+            font-size: 18px; 
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #11101b;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #b0b0ba;
+            color: #11101b;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .result {
+            margin-top: 25px;
+            font-size: 20px; 
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            Rhey Louis M. Gamul
+            <div class="sub-logo">4-310</div>
+        </div>
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="Final.html" class="active">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="wrapper">
+        <h1>Temperature and Length Converter</h1>
+        <div class="card">
+            <input type="number" id="temperature" placeholder="Enter value">
+            <button onclick="convertToFahrenheit()">Convert to Fahrenheit</button>
+            <button onclick="convertToCelsius()">Convert to Celsius</button>
+            <button onclick="convertToMeters()">Convert to Meters</button>
+            <button onclick="convertToFeet()">Convert to Feet</button>
+        </div>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function convertToFahrenheit() {
+            const temp = parseFloat(document.getElementById('temperature').value);
+            if (isNaN(temp)) {
+                document.getElementById('result').innerText = "Please enter a valid number.";
+                return;
+            }
+            const fahrenheit = (temp * 9 / 5) + 32;
+            document.getElementById('result').innerText = `${temp}°C is ${fahrenheit.toFixed(2)}°F`;
+        }
+
+        function convertToCelsius() {
+            const temp = parseFloat(document.getElementById('temperature').value);
+            if (isNaN(temp)) {
+                document.getElementById('result').innerText = "Please enter a valid number.";
+                return;
+            }
+            const celsius = (temp - 32) * 5 / 9;
+            document.getElementById('result').innerText = `${temp}°F is ${celsius.toFixed(2)}°C`;
+        }
+
+        function convertToMeters() {
+            const value = parseFloat(document.getElementById('temperature').value);
+            if (isNaN(value)) {
+                document.getElementById('result').innerText = "Please enter a valid number.";
+                return;
+            }
+            const meters = value * 0.3048;
+            document.getElementById('result').innerText = `${value} feet is ${meters.toFixed(2)} meters`;
+        }
+
+        function convertToFeet() {
+            const value = parseFloat(document.getElementById('temperature').value);
+            if (isNaN(value)) {
+                document.getElementById('result').innerText = "Please enter a valid number.";
+                return;
+            }
+            const feet = value / 0.3048;
+            document.getElementById('result').innerText = `${value} meters is ${feet.toFixed(2)} feet`;
+        }
+    </script>
+</body>
+</html>

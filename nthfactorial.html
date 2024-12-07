@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans&display=swap" rel="stylesheet">
+    <title>Factorial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Google Sans', sans-serif;
+        }
+
+        body {
+            background-color: #eeeeea;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 50px;
+            background-color: #11101b;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 28px;
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .sub-logo {
+            font-size: 14px;
+            color: #fff;
+            margin-top: 5px;
+        }
+
+        .nav-bar {
+            display: flex;
+        }
+
+        .nav-bar ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-bar ul li {
+            margin: 0 20px;
+        }
+
+        .nav-bar ul li a {
+            text-decoration: none;
+            font-size: 18px;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 20px;
+            background-color: #11101b; 
+            transition: all 0.3s ease;
+        }
+
+        .nav-bar ul li a:hover {
+            background-color: #fff; 
+            color: #11101b; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 700px;
+            margin: 100px auto;
+            padding: 40px;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: #11101b;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 20px;
+            margin-bottom: 30px;
+            font-size: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        button {
+            background-color: #223;
+            color: #fff;
+            border: none;
+            padding: 15px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 10px;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: darkblue;
+        }
+
+        .result {
+            margin-top: 30px;
+            font-size: 22px;
+            color: #11101b;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <div class="logo">Rhey Louis M. Gamul</div>
+            <div class="sub-logo">4-310</div>
+        </div>
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="Final.html" class="active">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="wrapper">
+        <h1>Factorial</h1>
+        <input type="number" id="number" placeholder="Enter an integer">
+        <button onclick="calculate()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculate() {
+            const n = parseInt(document.getElementById('number').value);
+            if (isNaN(n) || n < 0) {
+                document.getElementById('result').innerText = "Please enter a valid non-negative integer.";
+                return;
+            }
+
+            let factorial = 1;
+            let i = 1;
+            while (i <= n) {
+                factorial *= i;
+                i++;
+            }
+
+            let sum = 0;
+            let j = 1;
+            do {
+                sum += j;
+                j++;
+            } while (j <= n);
+
+            let total = 0;
+            for (let k = 1; k <= n; k++) {
+                total += k;
+            }
+            const average = total / n;
+
+            document.getElementById('result').innerHTML = `
+                <p>Factorial of ${n} (While Loop): <strong>${factorial}</strong></p>
+                <p>Sum of first ${n} numbers (Do While Loop): <strong>${sum}</strong></p>
+                <p>Average of first ${n} numbers (For Loop): <strong>${average.toFixed(2)}</strong></p>
+            `;
+        }
+    </script>
+</body>
+</html>
